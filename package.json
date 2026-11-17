@@ -1,0 +1,15 @@
+{
+  "name": "zelabairro-cv",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "npx serve .",
+    "exemplos": "python3 tools/gerar_exemplos.py",
+    "test": "node tools/teste_pipeline.mjs"
+  },
+  "devDependencies": {
+    "@techstark/opencv-js": "^5.0.0-release.1",
+    "pngjs": "^7.0.0"
+  }
+}

@@ -1,0 +1,537 @@
+[
+  {
+    "arquivo": "01_stop.png",
+    "condicao": "STOP, letra clara em fundo vermelho",
+    "esperado": "STOP",
+    "baseline": {
+      "etapa": "2. Tons de cinza",
+      "text": "STOP",
+      "confidence": 87,
+      "score": 87.367104,
+      "confs": [
+        87.367104
+      ]
+    },
+    "candidatos": [
+      {
+        "etapa": "2. Tons de cinza",
+        "text": "STOP",
+        "confidence": 87,
+        "score": 87.367104,
+        "confs": [
+          87.367104
+        ]
+      },
+      {
+        "etapa": "6. Otsu + limpeza",
+        "text": "STOP",
+        "confidence": 96,
+        "score": 96.161972,
+        "confs": [
+          96.161972
+        ]
+      },
+      {
+        "etapa": "7. Adaptativa + limpeza",
+        "text": "UOL?",
+        "confidence": 69,
+        "score": 69.407784,
+        "confs": [
+          69.407784
+        ]
+      },
+      {
+        "etapa": "8. Adaptativa larga + limpeza",
+        "text": "SLOP",
+        "confidence": 64,
+        "score": 63.551422,
+        "confs": [
+          63.551422
+        ]
+      },
+      {
+        "etapa": "9. Centro + iluminação normalizada",
+        "text": "STOP",
+        "confidence": 97,
+        "score": 96.740036,
+        "confs": [
+          96.740036
+        ]
+      }
+    ],
+    "escolhida": {
+      "etapa": "9. Centro + iluminação normalizada",
+      "text": "STOP",
+      "confidence": 97,
+      "score": 96.740036,
+      "confs": [
+        96.740036
+      ]
+    },
+    "confiavel": true,
+    "palavras": 1,
+    "recallBaseline": 1,
+    "recallEscolhida": 1,
+    "acertou": true
+  },
+  {
+    "arquivo": "02_no_parking.png",
+    "condicao": "NO PARKING, letra vermelha em fundo branco",
+    "esperado": "NO PARKING",
+    "baseline": {
+      "etapa": "2. Tons de cinza",
+      "text": "NO PARKING",
+      "confidence": 96,
+      "score": 136.1926169600594,
+      "confs": [
+        96.735397,
+        95.870049
+      ]
+    },
+    "candidatos": [
+      {
+        "etapa": "2. Tons de cinza",
+        "text": "NO PARKING",
+        "confidence": 96,
+        "score": 136.1926169600594,
+        "confs": [
+          96.735397,
+          95.870049
+        ]
+      },
+      {
+        "etapa": "6. Otsu + limpeza",
+        "text": "NO PARKING",
+        "confidence": 96,
+        "score": 135.94883694749788,
+        "confs": [
+          96.646721,
+          95.613968
+        ]
+      },
+      {
+        "etapa": "7. Adaptativa + limpeza",
+        "text": "NO PARKING",
+        "confidence": 96,
+        "score": 135.65341763381306,
+        "confs": [
+          95.93396,
+          95.908943
+        ]
+      },
+      {
+        "etapa": "8. Adaptativa larga + limpeza",
+        "text": "NO PARKING",
+        "confidence": 96,
+        "score": 136.06323904651927,
+        "confs": [
+          96.611229,
+          95.811249
+        ]
+      },
+      {
+        "etapa": "9. Centro + iluminação normalizada",
+        "text": "NO PARKING",
+        "confidence": 96,
+        "score": 136.22457535814192,
+        "confs": [
+          96.58757,
+          96.063072
+        ]
+      },
+      {
+        "etapa": "11. Região 1, Otsu",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "12. Região 1, adaptativa",
+        "text": "PARKING",
+        "confidence": 96,
+        "score": 96.304611,
+        "confs": [
+          96.304611
+        ]
+      },
+      {
+        "etapa": "13. Região 2, Otsu",
+        "text": "NO",
+        "confidence": 90,
+        "score": 90.280853,
+        "confs": [
+          90.280853
+        ]
+      },
+      {
+        "etapa": "14. Região 2, adaptativa",
+        "text": "NO",
+        "confidence": 93,
+        "score": 93.251762,
+        "confs": [
+          93.251762
+        ]
+      }
+    ],
+    "escolhida": {
+      "etapa": "9. Centro + iluminação normalizada",
+      "text": "NO PARKING",
+      "confidence": 96,
+      "score": 136.22457535814192,
+      "confs": [
+        96.58757,
+        96.063072
+      ]
+    },
+    "confiavel": true,
+    "palavras": 2,
+    "recallBaseline": 1,
+    "recallEscolhida": 1,
+    "acertou": true
+  },
+  {
+    "arquivo": "03_school_zone.png",
+    "condicao": "Duas linhas, fundo amarelo",
+    "esperado": "SCHOOL ZONE SPEED LIMIT 25",
+    "baseline": {
+      "etapa": "2. Tons de cinza",
+      "text": "SCHOOL ZONE SPEED LIMIT 25",
+      "confidence": 96,
+      "score": 214.67725839745637,
+      "confs": [
+        95.812286,
+        95.812286,
+        94.964859,
+        96.500008,
+        96.943504
+      ]
+    },
+    "candidatos": [
+      {
+        "etapa": "2. Tons de cinza",
+        "text": "SCHOOL ZONE SPEED LIMIT 25",
+        "confidence": 96,
+        "score": 214.67725839745637,
+        "confs": [
+          95.812286,
+          95.812286,
+          94.964859,
+          96.500008,
+          96.943504
+        ]
+      },
+      {
+        "etapa": "6. Otsu + limpeza",
+        "text": "SCHOOL ZONE SPEED LIMIT 25",
+        "confidence": 96,
+        "score": 215.3092615450441,
+        "confs": [
+          96.090515,
+          96.106461,
+          96.174706,
+          96.15918,
+          96.915283
+        ]
+      },
+      {
+        "etapa": "7. Adaptativa + limpeza",
+        "text": "SCHOOL ZONE SPEED LIMIT 25",
+        "confidence": 96,
+        "score": 215.60232508631117,
+        "confs": [
+          96.326073,
+          96.165695,
+          96.591026,
+          96.206047,
+          96.812614
+        ]
+      },
+      {
+        "etapa": "8. Adaptativa larga + limpeza",
+        "text": "SCHOOL ZONE SPEED LIMIT 25",
+        "confidence": 96,
+        "score": 215.5798848025162,
+        "confs": [
+          96.473816,
+          95.980713,
+          96.309204,
+          96.357048,
+          96.930496
+        ]
+      },
+      {
+        "etapa": "9. Centro + iluminação normalizada",
+        "text": "SCHOOL ZONE SPEED LIMIT 25",
+        "confidence": 96,
+        "score": 215.375893687492,
+        "confs": [
+          95.511185,
+          96.796104,
+          96.075668,
+          96.329102,
+          96.88308
+        ]
+      },
+      {
+        "etapa": "11. Região 1, Otsu",
+        "text": "SCHOOL",
+        "confidence": 75,
+        "score": 74.972733,
+        "confs": [
+          74.972733
+        ]
+      },
+      {
+        "etapa": "12. Região 1, adaptativa",
+        "text": "SCHOOL",
+        "confidence": 93,
+        "score": 93.219261,
+        "confs": [
+          93.219261
+        ]
+      },
+      {
+        "etapa": "13. Região 2, Otsu",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "14. Região 2, adaptativa",
+        "text": "ZONE",
+        "confidence": 96,
+        "score": 95.635506,
+        "confs": [
+          95.635506
+        ]
+      }
+    ],
+    "escolhida": {
+      "etapa": "7. Adaptativa + limpeza",
+      "text": "SCHOOL ZONE SPEED LIMIT 25",
+      "confidence": 96,
+      "score": 215.60232508631117,
+      "confs": [
+        96.326073,
+        96.165695,
+        96.591026,
+        96.206047,
+        96.812614
+      ]
+    },
+    "confiavel": true,
+    "palavras": 5,
+    "recallBaseline": 1,
+    "recallEscolhida": 1,
+    "acertou": true
+  },
+  {
+    "arquivo": "04_one_way.png",
+    "condicao": "ONE WAY, letra branca em fundo preto",
+    "esperado": "ONE WAY",
+    "baseline": {
+      "etapa": "2. Tons de cinza",
+      "text": "ONE WAY",
+      "confidence": 96,
+      "score": 135.4903870943427,
+      "confs": [
+        95.62413,
+        95.988213
+      ]
+    },
+    "candidatos": [
+      {
+        "etapa": "2. Tons de cinza",
+        "text": "ONE WAY",
+        "confidence": 96,
+        "score": 135.4903870943427,
+        "confs": [
+          95.62413,
+          95.988213
+        ]
+      },
+      {
+        "etapa": "6. Otsu + limpeza",
+        "text": "ONE WAY",
+        "confidence": 96,
+        "score": 136.385173450285,
+        "confs": [
+          96.22744,
+          96.650322
+        ]
+      },
+      {
+        "etapa": "7. Adaptativa + limpeza",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "8. Adaptativa larga + limpeza",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "9. Centro + iluminação normalizada",
+        "text": "ONE WAY",
+        "confidence": 96,
+        "score": 135.92796951927826,
+        "confs": [
+          95.962547,
+          96.268631
+        ]
+      },
+      {
+        "etapa": "11. Região 1, Otsu",
+        "text": "ONE",
+        "confidence": 68,
+        "score": 67.989075,
+        "confs": [
+          67.989075
+        ]
+      },
+      {
+        "etapa": "12. Região 1, adaptativa",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      }
+    ],
+    "escolhida": {
+      "etapa": "6. Otsu + limpeza",
+      "text": "ONE WAY",
+      "confidence": 96,
+      "score": 136.385173450285,
+      "confs": [
+        96.22744,
+        96.650322
+      ]
+    },
+    "confiavel": true,
+    "palavras": 2,
+    "recallBaseline": 1,
+    "recallEscolhida": 1,
+    "acertou": true
+  },
+  {
+    "arquivo": "05_do_not_enter.png",
+    "condicao": "DO NOT ENTER, duas linhas, fundo vermelho",
+    "esperado": "DO NOT ENTER",
+    "baseline": {
+      "etapa": "2. Tons de cinza",
+      "text": "DO NOT ENTER",
+      "confidence": 96,
+      "score": 166.8153553795276,
+      "confs": [
+        95.917114,
+        96.641869,
+        96.373688
+      ]
+    },
+    "candidatos": [
+      {
+        "etapa": "2. Tons de cinza",
+        "text": "DO NOT ENTER",
+        "confidence": 96,
+        "score": 166.8153553795276,
+        "confs": [
+          95.917114,
+          96.641869,
+          96.373688
+        ]
+      },
+      {
+        "etapa": "6. Otsu + limpeza",
+        "text": "DO NOT ENTER",
+        "confidence": 96,
+        "score": 166.6298544700877,
+        "confs": [
+          95.87104,
+          96.263535,
+          96.476799
+        ]
+      },
+      {
+        "etapa": "7. Adaptativa + limpeza",
+        "text": "ENTER",
+        "confidence": 72,
+        "score": 72.287331,
+        "confs": [
+          72.287331
+        ]
+      },
+      {
+        "etapa": "8. Adaptativa larga + limpeza",
+        "text": "ENTER",
+        "confidence": 96,
+        "score": 96.365852,
+        "confs": [
+          96.365852
+        ]
+      },
+      {
+        "etapa": "9. Centro + iluminação normalizada",
+        "text": "DO NOT ENTER",
+        "confidence": 97,
+        "score": 167.42146923912821,
+        "confs": [
+          96.611168,
+          96.543686,
+          96.827637
+        ]
+      },
+      {
+        "etapa": "11. Região 1, Otsu",
+        "text": "ENTER",
+        "confidence": 96,
+        "score": 96.087784,
+        "confs": [
+          96.087784
+        ]
+      },
+      {
+        "etapa": "12. Região 1, adaptativa",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "13. Região 2, Otsu",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      },
+      {
+        "etapa": "14. Região 2, adaptativa",
+        "text": "",
+        "confidence": 0,
+        "score": 0,
+        "confs": []
+      }
+    ],
+    "escolhida": {
+      "etapa": "9. Centro + iluminação normalizada",
+      "text": "DO NOT ENTER",
+      "confidence": 97,
+      "score": 167.42146923912821,
+      "confs": [
+        96.611168,
+        96.543686,
+        96.827637
+      ]
+    },
+    "confiavel": true,
+    "palavras": 3,
+    "recallBaseline": 1,
+    "recallEscolhida": 1,
+    "acertou": true
+  }
+]

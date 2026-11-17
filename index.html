@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ZelaBairro · Leitura de sinalização (Computer Vision)</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://docs.opencv.org/4.x/opencv.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5.1.1/dist/tesseract.min.js"></script>
+</head>
+<body>
+  <header>
+    <h1>ZelaBairro</h1>
+    <p>Registre um problema em sinalização urbana. A foto é lida automaticamente e o texto extraído entra no cadastro.</p>
+  </header>
+
+  <main>
+    <section aria-labelledby="t1">
+      <h2 id="t1">1. Foto da sinalização</h2>
+      <label for="foto">Escolha ou tire uma foto</label>
+      <input type="file" id="foto" accept="image/*" capture="environment">
+      <label for="exemplo">Ou use uma imagem de exemplo</label>
+      <select id="exemplo">
+        <option value="">Escolha um exemplo...</option>
+        <optgroup label="Imagens sintéticas">
+          <option value="01_pare_boa_luz.png">PARE, letra clara em fundo vermelho</option>
+          <option value="02_ruido_sal_pimenta.png">Proibido estacionar, ruído sal e pimenta</option>
+          <option value="03_sombra.png">Preferencial, iluminação irregular</option>
+          <option value="04_baixo_contraste.png">Siga em frente, baixo contraste (caso difícil)</option>
+          <option value="05_inclinada_letra_clara.png">Travessia escolar, inclinada, letra clara</option>
+          <option value="06_ruido_gaussiano.png">Velocidade máxima 40, ruído gaussiano</option>
+        </optgroup>
+        <optgroup label="Fotos reais (cena completa)">
+          <option value="../exemplos_reais/placa-1.jpg">1. Atenção, velocidade 30 km/h (várias placas)</option>
+          <option value="../exemplos_reais/placa-2.jpg">2. Rua sem saída (placa amarela)</option>
+          <option value="../exemplos_reais/placa-3.jpg">3. PARE com proibido virar à esquerda</option>
+          <option value="../exemplos_reais/placa-4.jpg">4. Semáforo à frente, A 150 m</option>
+          <option value="../exemplos_reais/placa-5.jpg">5. PARE com proibido estacionar (vegetação)</option>
+          <option value="../exemplos_reais/placa-7.jpg">7. Vizinhança vigilante (contraluz)</option>
+          <option value="../exemplos_reais/placa-8.jpg">8. Proibido estacionar, dia e noite (guincho)</option>
+          <option value="../exemplos_reais/placa-9.jpg">9. Exclusivo ônibus com horários (noite)</option>
+          <option value="../exemplos_reais/placa-10.jpg">10. PARE e passagem de trem (entardecer)</option>
+          <option value="../exemplos_reais/placa-11.jpg">11. Parada de ônibus SMT (baixa resolução)</option>
+          <option value="../exemplos_reais/placa-12.jpg">12. Velocidade 20 km/h, zona escolar (distante)</option>
+          <option value="../exemplos_reais/placa-13.jpg">13. Proibido estacionar grande porte (texto miúdo)</option>
+        </optgroup>
+        <optgroup label="Fotos reais (recorte manual da placa)">
+          <option value="../exemplos_reais_recortes/placa-1_recorte.jpg">1. Atenção, velocidade 30 km/h (várias placas), recorte</option>
+          <option value="../exemplos_reais_recortes/placa-3_recorte.jpg">3. PARE com proibido virar à esquerda, recorte</option>
+          <option value="../exemplos_reais_recortes/placa-5_recorte.jpg">5. PARE com proibido estacionar (vegetação), recorte</option>
+          <option value="../exemplos_reais_recortes/placa-9_recorte.jpg">9. Exclusivo ônibus com horários (noite), recorte</option>
+          <option value="../exemplos_reais_recortes/placa-10_recorte.jpg">10. PARE e passagem de trem (entardecer), recorte</option>
+          <option value="../exemplos_reais_recortes/placa-12_recorte.jpg">12. Velocidade 20 km/h, zona escolar (distante), recorte</option>
+        </optgroup>
+      </select>
+      <p id="status" role="status" aria-live="polite">Aguardando foto.</p>
+      <progress id="bar" max="1" value="0" hidden></progress>
+    </section>
+
+    <section aria-labelledby="t2">
+      <h2 id="t2">2. Etapas do processamento</h2>
+      <div id="steps" class="grid"></div>
+    </section>
+
+    <section aria-labelledby="t3">
+      <h2 id="t3">3. Dados extraídos e cadastro</h2>
+      <label for="texto">Texto extraído da imagem (corrija se necessário)</label>
+      <textarea id="texto" rows="2"></textarea>
+      <p id="meta" class="hint"></p>
+
+      <label for="local">Local</label>
+      <input id="local" type="text" placeholder="Ex.: Praça da Matriz">
+      <label for="categoria">Categoria</label>
+      <select id="categoria">
+        <option value="sinalizacao">Sinalização</option>
+        <option value="mobiliario">Mobiliário urbano</option>
+        <option value="calcada">Calçada</option>
+        <option value="outro">Outro</option>
+      </select>
+      <label for="descricao">Descrição do problema</label>
+      <textarea id="descricao" rows="3" placeholder="Ex.: Placa com suporte danificado"></textarea>
+      <label class="check"><input type="checkbox" id="consent"> Tenho autorização para usar esta foto e ela não expõe rostos ou placas de veículos.</label>
+      <button id="salvar" type="button">Registrar ocorrência</button>
+      <p id="resultado" role="status" aria-live="polite"></p>
+    </section>
+
+    <section aria-labelledby="t4">
+      <h2 id="t4">4. Consulta e status</h2>
+      <label for="busca">Consultar pelo protocolo</label>
+      <input id="busca" type="text" placeholder="OC-001">
+      <button id="consultar" type="button">Consultar</button>
+      <p id="consulta"></p>
+      <div class="actions">
+        <button id="exportar" type="button">Exportar JSON</button>
+      </div>
+      <div class="scroll"><table id="lista"></table></div>
+    </section>
+  </main>
+
+  <footer>GS 2026.2 CitizenTech · Applied Computer Vision · Dados guardados apenas neste navegador.</footer>
+  <aside class="equipe" aria-label="Equipe do projeto">
+    <ul>
+      <li title="Gabriel Leão da Silva, RM 552642">
+        <img src="assets/equipe/gabriel.jpg" alt="Foto de Gabriel Leão da Silva" width="40" height="40" loading="lazy">
+        <span><strong>Gabriel Leão</strong><small>RM 552642</small></span>
+      </li>
+      <li title="Matheus Farias de Lima, RM 554254">
+        <img src="assets/equipe/matheus.jpg" alt="Foto de Matheus Farias de Lima" width="40" height="40" loading="lazy">
+        <span><strong>Matheus Farias</strong><small>RM 554254</small></span>
+      </li>
+      <li title="Miguel Mauricio Parrado Patarroyo, RM 554007">
+        <img src="assets/equipe/miguel.jpg" alt="Foto de Miguel Mauricio Parrado Patarroyo" width="40" height="40" loading="lazy">
+        <span><strong>Miguel Parrado</strong><small>RM 554007</small></span>
+      </li>
+      <li title="Pedro Henrique Nardaci Chaves, RM 553988">
+        <img src="assets/equipe/pedro.jpg" alt="Foto de Pedro Henrique Nardaci Chaves" width="40" height="40" loading="lazy">
+        <span><strong>Pedro Chaves</strong><small>RM 553988</small></span>
+      </li>
+      <li title="Vitor Pinheiro Nascimento, RM 553693">
+        <img src="assets/equipe/vitor.jpg" alt="Foto de Vitor Pinheiro Nascimento" width="40" height="40" loading="lazy">
+        <span><strong>Vitor Pinheiro</strong><small>RM 553693</small></span>
+      </li>
+    </ul>
+  </aside>
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
