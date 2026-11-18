@@ -1,4 +1,5 @@
 const MIN_CONFIDENCE = 60;
+const NUMBER_MIN_CONFIDENCE = 60;
 let worker = null;
 let progressCb = null;
 
@@ -16,7 +17,9 @@ async function getWorker() {
 }
 
 const UNITS = new Set(["km/h", "km", "m", "h"]);
+const UNIT_RE = /(^|\s)(km\/?h?)(?=\s|$)/i;
 const isNumber = (t) => /^\d+([.,]\d+)?$/.test(t);
+const isSpeedNumber = (t) => /^\d{2,3}$/.test(t);
 
 export function keepWord(text, conf) {
   if (text.length < 2 || !/^[A-Za-zÀ-ÿ0-9][A-Za-zÀ-ÿ0-9./%-]*$/.test(text))
@@ -48,24 +51,58 @@ export async function recognize(canvas, onProgress) {
   progressCb = onProgress;
   const w = await getWorker();
   const { data } = await w.recognize(canvas);
-  const kept = filterWords(data.words || []);
+  const words = data.words || [];
+  const kept = filterWords(words);
   const text = kept
     .map((x) => x.text)
     .join(" ")
     .replace(/[|_\\[\]{}~]/g, " ")
     .replace(/\s+/g, " ")
     .trim();
-  const score = kept.reduce((a, x) => a + x.confidence, 0);
 
-  const raw = (data.words || [])
+  // Score = confiança média das palavras mantidas x raiz do número de palavras
+  // (mesma regra do README e de tools/teste_pipeline.mjs).
+  const mean = kept.length
+    ? kept.reduce((a, x) => a + x.confidence, 0) / kept.length
+    : 0;
+  const score = mean * Math.sqrt(kept.length);
+
+  // Números de 2 a 3 dígitos vistos nesta variante, para recuperar o valor
+  // de placas de velocidade quando outra variante leu só a unidade.
+  const numbers = words
+    .filter(
+      (x) => isSpeedNumber(x.text) && x.confidence >= NUMBER_MIN_CONFIDENCE,
+    )
+    .map((x) => ({ text: x.text, conf: x.confidence }));
+
+  const raw = words
     .filter((x) => x.confidence >= 30)
     .map((x) => `${x.text}(${Math.round(x.confidence)})`)
     .join(" ");
   return {
     text,
-    confidence: kept.length ? Math.round(score / kept.length) : 0,
+    confidence: Math.round(mean),
     score,
     raw,
+    numbers,
+  };
+}
+
+// Se a melhor leitura tem unidade (km/h, km/) mas nenhum número, busca o número
+// de maior confiança lido em qualquer variante e o coloca antes da unidade.
+function recoverNumber(best, all) {
+  if (!UNIT_RE.test(best.text) || /\b\d{2,3}\b/.test(best.text)) return best;
+  const num = all
+    .flatMap((r) => r.numbers || [])
+    .sort((a, b) => b.conf - a.conf)[0];
+  if (!num) return best;
+  return {
+    ...best,
+    text: best.text.replace(
+      UNIT_RE,
+      (_m, pre, unit) => `${pre}${num.text} ${unit}`,
+    ),
+    recoveredNumber: num.text,
   };
 }
 
@@ -77,7 +114,8 @@ export async function pickBest(steps, onProgress) {
     );
     all.push({ name: steps[i].name, ...r });
   }
-  const best = all.reduce((a, b) => (b.score > a.score ? b : a));
+  const picked = all.reduce((a, b) => (b.score > a.score ? b : a));
+  const best = recoverNumber(picked, all);
   return { ...best, reliable: hasLetters(best.text), all };
 }
 
