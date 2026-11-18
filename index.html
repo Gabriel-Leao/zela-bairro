@@ -10,7 +10,7 @@
 </head>
 <body>
   <header>
-    <h1>ZelaBairro</h1>
+    <h1>Zela Bairro</h1>
     <p>Registre um problema em sinalização urbana. A foto é lida automaticamente e o texto extraído entra no cadastro.</p>
   </header>
 
@@ -67,6 +67,10 @@
       <label for="texto">Texto extraído da imagem (corrija se necessário)</label>
       <textarea id="texto" rows="2"></textarea>
       <p id="meta" class="hint"></p>
+      <details id="detalhes" hidden>
+        <summary>Ver o que cada versão leu</summary>
+        <ul id="lista-variantes"></ul>
+      </details>
 
       <label for="local">Local</label>
       <input id="local" type="text" placeholder="Ex.: Praça da Matriz">
