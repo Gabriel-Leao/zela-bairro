@@ -119,7 +119,6 @@ O módulo de Big Data do grupo espera também o campo `origem_dado`, e as catego
 - OCR não prova que a placa está danificada.
 - Funciona melhor com a placa grande, centralizada e legível.
 - Dados no `localStorage` do navegador, sem persistência compartilhada.
-- A foto 12 contém um crédito de fotógrafo na própria imagem, que o OCR lê.
 - Privacidade: o processamento é local e nada é enviado a servidor próprio. Fotos de uso real exigem autorização, sem rostos nem placas de veículos.
 
 ## Documentação
